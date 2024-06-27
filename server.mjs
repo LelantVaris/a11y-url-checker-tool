@@ -2,17 +2,11 @@ import express from 'express';
 import { launch } from 'chrome-launcher';
 import lighthouse from 'lighthouse';
 import cors from 'cors';
-import path from 'path';
-import favicon from 'serve-favicon';
 
 const app = express();
 
 // Use the CORS middleware
 app.use(cors());
-
-// Serve a default favicon to avoid errors
-const __dirname = path.resolve();
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // Root route to verify the server is running
 app.get('/', (req, res) => {
