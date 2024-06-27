@@ -6,10 +6,7 @@ import cors from 'cors';
 const app = express();
 
 // Use the CORS middleware
-const corsOptions = {
-    origin: '*', // Allow all origins for simplicity; adjust as needed
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Root route to verify the server is running
 app.get('/', (req, res) => {
