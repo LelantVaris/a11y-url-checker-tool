@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lighthouse Results</title>
+</head>
+<body>
+    <h1>Lighthouse Audit Results</h1>
+    <pre id="result"></pre>
+    <script>
+        // Retrieve the audit result from localStorage
+        const auditResult = JSON.parse(localStorage.getItem('auditResult'));
+        document.getElementById('result').textContent = JSON.stringify(auditResult, null, 2);
+    </script>
+</body>
+</html>
