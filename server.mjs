@@ -41,5 +41,5 @@ app.get('/run-audit', async (req, res) => {
 
 // Listen on all network interfaces
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running at http://localhost:${port} or your local IP address on port ${port}`);
+    console.log(`Server is running at http://localhost:${port}`);
 });
