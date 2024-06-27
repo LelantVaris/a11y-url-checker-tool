@@ -1,18 +1,3 @@
-import express from 'express';
-import { launch } from 'chrome-launcher';
-import lighthouse from 'lighthouse';
-import cors from 'cors';
-
-const app = express();
-
-// Use the CORS middleware
-app.use(cors());
-
-// Root route to verify the server is running
-app.get('/', (req, res) => {
-    res.send('Lighthouse Audit Server is running');
-});
-
 app.get('/run-audit', async (req, res) => {
     const url = req.query.url;
     console.log(`Received audit request for URL: ${url}`);
@@ -31,6 +16,8 @@ app.get('/run-audit', async (req, res) => {
         });
         const options = { logLevel: 'info', output: 'json', port: chrome.port };
         const runnerResult = await lighthouse(url, options);
+
+        console.log('Lighthouse audit result:', runnerResult);
         
         await chrome.kill();
         
@@ -42,10 +29,3 @@ app.get('/run-audit', async (req, res) => {
         res.status(500).send(`Error running Lighthouse: ${error.message}`);
     }
 });
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
-
-export default app;
