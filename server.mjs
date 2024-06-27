@@ -1,20 +1,27 @@
 import express from 'express';
 import { launch } from 'chrome-launcher';
 import lighthouse from 'lighthouse';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 const app = express();
-const port = process.env.PORT || 3000;
 
-// Serve static files from the 'public' directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'public')));
+// Use the CORS middleware
+const corsOptions = {
+    origin: '*', // Allow all origins for simplicity; adjust as needed
+};
+app.use(cors(corsOptions));
+
+// Root route to verify the server is running
+app.get('/', (req, res) => {
+    res.send('Lighthouse Audit Server is running');
+});
 
 app.get('/run-audit', async (req, res) => {
     const url = req.query.url;
+    console.log(`Received audit request for URL: ${url}`);
+
     if (!url) {
+        console.log('No URL provided');
         res.status(400).send('URL is required');
         return;
     }
@@ -39,7 +46,9 @@ app.get('/run-audit', async (req, res) => {
     }
 });
 
-// Listen on all network interfaces
-app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running at http://localhost:${port}`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
+
+export default app;
