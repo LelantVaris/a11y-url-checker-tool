@@ -1,9 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "server.mjs", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/server.mjs" }
-  ]
+  "name": "lighthouse-server",
+  "version": "1.0.0",
+  "main": "server.mjs",
+  "engines": {
+    "node": ">=14.x"
+  },
+  "dependencies": {
+    "chrome-launcher": "^0.14.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lighthouse": "^8.3.0"
+  }
 }
